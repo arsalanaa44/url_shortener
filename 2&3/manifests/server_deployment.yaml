@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shortener 
+  labels:
+    app: shortener 
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shortener 
+  template:
+    metadata:
+      labels:
+        app: shortener 
+    spec:
+      containers:
+      - name: server 
+        image: shortener 
+        envFrom:
+        - configMapRef:
+            name: shortener-envs 
+        imagePullPolicy: IfNotPresent
+        ports: 
+        - containerPort: 8080
